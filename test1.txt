@@ -1,0 +1,8 @@
+id                 	article_id         	article_name       	op_debit           	op_credit          	op_create_date     	bal_id             	bal_create_date    	bal_debit          	bal_credit         	bal_amount         
+17                 	13                 	buy bread          	0                  	180                	2024-10-11 00:00:00	38                 	2024-10-12 00:00:00	10000              	1530               	8470               
+16                 	32                 	buy potato         	0                  	50                 	2024-10-11 00:00:00	38                 	2024-10-12 00:00:00	10000              	1530               	8470               
+21                 	11                 	salary             	10000              	1300               	2024-09-12 00:00:00	37                 	2024-09-13 00:00:00	10000              	1300               	8700               
+19                 	11                 	salary             	10000              	1300               	2024-10-12 00:00:00	38                 	2024-10-12 00:00:00	10000              	1530               	8470               
+22                 	11                 	salary             	10000              	1300               	2024-08-12 00:00:00	39                 	2024-08-13 00:00:00	10000              	1300               	8700               
+40                 	35                 	buy table          	0                  	1500               	2024-05-12 00:00:00	None               	None               	None               	None               	None               
+79                 	13                 	buy bread          	0                  	50                 	2024-12-13 00:00:00	None               	None               	None               	None               	None               
