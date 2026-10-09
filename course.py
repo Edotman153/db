@@ -1,14 +1,17 @@
 import psycopg
+from psycopg.conninfo import make_conninfo
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import *
 from hashlib import sha256
 import configparser
+import os
+from pathlib import Path
 from typing import Optional
 from matplotlib import pyplot
 from datetime import datetime
 
 cfg = configparser.ConfigParser()
-cfg.read("cfg.ini")
+cfg.read(os.environ.get("BUDGET_CFG", Path(__file__).resolve().parent / "cfg.ini"), encoding="utf-8")
 
 def openWindow(self, s, f: Optional[bool] = True, mes: Optional[str] = ""):
     try:
@@ -86,7 +89,7 @@ class Data:
         "ops":"SELECT * FROM (SELECT oa.id, article_id, name, oa.debit as o_debit, oa.credit as o_credit, oa.create_date as o_create_date, " +
                             "balance_id, b.create_date as b_create_date, b.debit as b_debit, b.credit as b_credit, b.amount as b_amount " +
                             "FROM (SELECT o.id, article_id, name, debit, credit, create_date, balance_id " +
-                            "FROM operations o LEFT JOIN articles a ON o.article_id = a.id) oa LEFT JOIN balance b ON oa.balance_id = b.id)",
+                            "FROM operations o LEFT JOIN articles a ON o.article_id = a.id) oa LEFT JOIN balance b ON oa.balance_id = b.id) t",
         "arts":"SELECT * FROM articles",
         "BalanceWindow":"SELECT * FROM balance"
     }
@@ -128,9 +131,14 @@ class SignInWindow(QMainWindow):
         else:
             self.label.setText("Неверный логин или пароль, попробуйте еще")
             return
-        s = "host=" + cfg["db"]["host"] + " port=" + cfg["db"]["port"] + " dbname=" + cfg["db"]["dbname"] + " user="
-        Data.conn = psycopg.connect(s + str(self.line1.text()) + " password=" + str(self.line2.text()))
-        Data.conn.set_autocommit(True)
+        try:
+            Data.conn = psycopg.connect(make_conninfo(
+                host=cfg["db"]["host"], port=cfg["db"]["port"], dbname=cfg["db"]["dbname"],
+                user=self.line1.text(), password=self.line2.text()))
+            Data.conn.set_autocommit(True)
+        except psycopg.Error as e:
+            self.label.setText("Не удалось подключиться к БД: " + str(e).strip().splitlines()[0])
+            return
         self.line1.clear();
         self.line2.clear();
         openWindow(self, "MainWindow")
@@ -680,8 +688,7 @@ class DebitCreditWindow(QMainWindow):
                 d = s1[i + 1]
                 dt = d[0:10]
                 sm = int(s1[i + 2])
-                yd[int(s1[i])] = []
-                yd[int(s1[i])].append((dt, sm))
+                yd.setdefault(int(s1[i]), []).append((dt, sm))
             print("dict:", yd)
             for k, v in yd.items():
                 yi = [0]*(len(x))
@@ -1350,13 +1357,13 @@ class ErrorWindow(QMainWindow):
             print(f"{repr(e)}")
 
 
+def main():
+    app = QApplication([])
+    window = SignInWindow()
+    window.show()
+    Data.windows["SignInWindow"] = window
+    app.exec()
 
 
-app = QApplication([])
-window = SignInWindow()
-window.show()
-Data.windows["SignInWindow"] = window
-app.exec()
-
-
-
+if __name__ == "__main__":
+    main()
