@@ -41,3 +41,17 @@ python course.py
 - `schema.sql` - таблицы, типы, процедуры (`insert_balance`, `print_amounts`, `print_debit_credit_on_period`, `calculate_percents_flow_p`)
 - `seed.sql` - демо-данные
 - `setup_db.py` - применяет схему и создаёт роли (можно запускать повторно)
+
+## Скриншоты
+
+<img width="498" height="425" alt="Снимок экрана от 2026-10-09 17-18-16" src="https://github.com/user-attachments/assets/89fff06c-f1cf-4865-ac1a-510621acaf30" />
+
+<img width="515" height="462" alt="Снимок экрана от 2026-10-09 17-18-38" src="https://github.com/user-attachments/assets/3a71e4a6-e644-489a-8448-a1a9a69a2d9c" />
+
+<img width="2364" height="1120" alt="Снимок экрана от 2026-10-09 17-18-56" src="https://github.com/user-attachments/assets/bc479394-067b-4b88-b72f-fc828c1d70bb" />
+
+<img width="978" height="848" alt="Снимок экрана от 2026-10-09 17-19-07" src="https://github.com/user-attachments/assets/cdadaab5-4fda-425a-9f85-5a28aa80d1bb" />
+
+<img width="926" height="697" alt="Снимок экрана от 2026-10-09 17-19-26" src="https://github.com/user-attachments/assets/622d286e-2cda-4b7b-ba82-5f57403cc220" />
+
+<img width="1078" height="1100" alt="Снимок экрана от 2026-10-09 17-19-47" src="https://github.com/user-attachments/assets/38f12aaa-75bc-4e7f-8299-4584206e6fb7" />
